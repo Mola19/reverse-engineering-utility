@@ -1,0 +1,53 @@
+{
+	"compilerOptions": {
+		/* - project options - */
+		"module": "esnext",
+		"removeComments": true,
+		"rootDir": "src",
+		"sourceMap": false,
+		"target": "esnext",
+
+		/* - strict checks - */
+		"alwaysStrict": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strict": true,
+		"strictBindCallApply": true,
+		"strictFunctionTypes": true,
+		"strictNullChecks": true,
+		"strictPropertyInitialization": true,
+
+		/* - linter checks - */
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitReturns": true,
+		"noUncheckedIndexedAccess": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+
+		/* - module resolution - */
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": ".",
+		"esModuleInterop": true,
+		"moduleResolution": "node",
+		"isolatedModules": true,
+		"resolveJsonModule": true,
+		"types" : [ "node" ],
+
+		/* - experimental - */
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+
+		/* - advanced - */
+		"forceConsistentCasingInFileNames": true,
+		"skipLibCheck": true
+	},
+	"include": [
+		"src/**/*.ts",
+		"src/i18n/**/*.json",
+		"../../types/**/*.d.ts"
+	],
+	"exclude": [
+		"**/*.spec.ts",
+		"**/*.test.ts"
+	]
+}
