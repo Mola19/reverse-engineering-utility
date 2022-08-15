@@ -8,6 +8,7 @@
 	let activeMatrixProtocol: string
 	let matrix: (string | null)[]
 	let matrixProtocolIteration: number
+	let keydownListenerAbort: AbortController | undefined
 
 	let resolveVirtualKeypress: ((val: string | null) => void) | null
 	let resolvePhysicalKeypress: ((val: string) => void) | undefined
@@ -29,6 +30,16 @@
 
 		matrix = Array(matrixProtocolIteration)
 
+		keydownListenerAbort = new AbortController()
+
+		document.body.addEventListener("keydown", (key) => {
+			// ignore a keypress if the button is held
+			if (key.repeat) return
+
+			resolvePhysicalKeypress?.(`${key.key} (${key.code})`)
+			resolvePhysicalKeypress = undefined
+		}, { signal: keydownListenerAbort.signal})
+
 		for (matrixProtocolIteration = 0; matrixProtocolIteration < matrixProtocolData.iterations; matrixProtocolIteration++) {
 			executeMatrixProtocolIteration(activeMatrixProtocol, matrixProtocolIteration)
 			matrix[matrixProtocolIteration] = await Promise.any([
@@ -37,21 +48,19 @@
 			])
 		}
 
-		// download json (spread to convert array to object)
-		const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ ...matrix }, null, "\t"))
+		keydownListenerAbort.abort()
+
+		stage = 4
+	}
+
+	function downloadJSON (filename: string, data: object) {
+		const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, "\t"))
 		let downloadAnchorNode = document.createElement('a')
 		downloadAnchorNode.setAttribute("href", dataStr)
-		downloadAnchorNode.setAttribute("download", "matrix.json")
+		downloadAnchorNode.setAttribute("download", filename)
 		downloadAnchorNode.click()
 		downloadAnchorNode.remove()
 	}
-
-	document.body.addEventListener("keydown", (key) => {
-		if (key.repeat) return
-
-		resolvePhysicalKeypress?.(`${key.key} (${key.code})`)
-		resolvePhysicalKeypress = undefined
-	})
 </script>
 
 <!-- delete stage 0 -->
@@ -73,6 +82,9 @@
 	<button on:click={() => { resolveVirtualKeypress?.("Alt Gr (Right Alt)"); resolveVirtualKeypress = null }}>Alt Gr</button>
 	<button on:click={() => { resolveVirtualKeypress?.("Caps lock"); resolveVirtualKeypress = null }}>Caps lock</button>
 	<button on:click={() => { resolveVirtualKeypress?.("Print"); resolveVirtualKeypress = null }}>Print</button>
+{:else if stage === 4}
+	<p>The matrix generation is now done, click on the download button to download the data</p>
+	<button on:click={() => downloadJSON(`${activeMatrixProtocol}-matrix.json`, { ...matrix })}>download</button>
 {/if}
 
 
