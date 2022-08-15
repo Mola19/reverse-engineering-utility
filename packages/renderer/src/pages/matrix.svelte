@@ -79,7 +79,7 @@
 		<button on:click={(event) => askForUserApproval(event.target)}>{matrixProtocolName}</button>
 	{/each}
 {:else if stage === 2}
-	<p>Do you want to start? You won't be able to use your keyboards special keys as long as you are focused on this window</p>
+	<p>Do you want to start the matrix generation?</p>
 	<button on:click={() => startMatrixGeneration()}>Start</button>
 {:else if stage === 3}
 	{#if capsLockActive}
@@ -87,8 +87,8 @@
 			Please disable CapsLock before resuming the matrix generation
 		</div>
 	{/if}
-	<p>Your keys will now light up one after another, click the corresponding key on the screen or on your keyboard. When nothing lights up click the "Skip Key".</p>
-	<p>The FN key can't be detected by the program because it doesn't get sent to the computer, so when it lights up, you have to click it on the screen.</p>
+	<p>Your keys will now light up one after another. Click the corresponding key on the screen or on your keyboard. When nothing lights up click the "Skip Key".</p>
+	<p>When the FN or Print key lights up, you have to click it on the screen, because the app can't detect the keypress.</p>
 	<p>Progress: { (matrixProtocolIteration / (matrixProtocolData.iterations - 1)) * 100 }% ({ matrixProtocolIteration }/{ matrixProtocolData.iterations - 1 })</p>
 	<button on:click={() => { resolveVirtualKeypress?.(null); resolveVirtualKeypress = null }}>Skip Key</button>
 	<button on:click={() => { resolveVirtualKeypress?.("FN key"); resolveVirtualKeypress = null }}>FN</button>

@@ -12,6 +12,8 @@
 - [ ] init function for protocols
 - [ ] other options than JSON
 - [ ] other element than body for keydown event listeners
+- [ ] custom key input
+- [ ] fix 100% + 1 progress issue
 
 ## new tools
 
