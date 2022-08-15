@@ -7,7 +7,7 @@
   - ~~Print~~ (not accessable for the browser, virtual key needed like FN)
 - [ ] virtual keyboard
 - [ ] link to protocol folder
-- [ ] cancel button
+- [x] cancel button
 - [ ] prevent default for keys
 - [ ] init function for protocols
 - [ ] other options than JSON

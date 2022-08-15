@@ -96,9 +96,14 @@
 	<button on:click={() => { resolveVirtualKeypress?.("Print"); resolveVirtualKeypress = null }}>Print</button>
 {:else if stage === 4}
 	<p>The matrix generation is now done, click on the download button to download the data</p>
-	<button on:click={() => downloadJSON(`${activeMatrixProtocol}-matrix.json`, { ...matrix })}>download</button>
+	<button on:click={() => downloadJSON(`${activeMatrixProtocol}-matrix.json`, { ...matrix })}>Download</button>
 {/if}
 
+{#if stage !== 0}
+	<div class="footer">
+		<button on:click={() => stage = 0}>Cancel</button>
+	</div>
+{/if}
 
 <style>
 	.overlay {
@@ -110,6 +115,19 @@
 		z-index: 100;
 		background-color: white;
 		opacity: 0.90;
+
+		/* align */
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.footer {
+		position: fixed;
+		bottom: 0;
+
+		width: 100%;
+		height: 10%;
 
 		/* align */
 		display: flex;
