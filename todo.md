@@ -2,7 +2,7 @@
 ## matrix
 
 - [ ] fix buttons
-  - [ ] Caps Lock
+  - [x] Caps Lock
   - [ ] Alt Gr
   - ~~Print~~ (not accessable for the browser, virtual key needed like FN)
 - [ ] virtual keyboard
@@ -11,6 +11,7 @@
 - [ ] prevent default for keys
 - [ ] init function for protocols
 - [ ] other options than JSON
+- [ ] other element than body for keydown event listeners
 
 ## new tools
 

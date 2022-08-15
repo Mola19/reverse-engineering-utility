@@ -9,6 +9,7 @@
 	let matrix: (string | null)[]
 	let matrixProtocolIteration: number
 	let keydownListenerAbort: AbortController | undefined
+	let capsLockActive: boolean
 
 	let resolveVirtualKeypress: ((val: string | null) => void) | null
 	let resolvePhysicalKeypress: ((val: string) => void) | undefined
@@ -32,15 +33,22 @@
 
 		keydownListenerAbort = new AbortController()
 
-		document.body.addEventListener("keydown", (key) => {
+		document.body.addEventListener("keydown", (keypress) => {
 			// ignore a keypress if the button is held
-			if (key.repeat) return
+			if (keypress.repeat) return
 
-			resolvePhysicalKeypress?.(`${key.key} (${key.code})`)
+			if (capsLockActive) {
+				capsLockActive = keypress.getModifierState("CapsLock")
+				return
+			}
+
+			capsLockActive = keypress.getModifierState("CapsLock")
+
+			resolvePhysicalKeypress?.(`${keypress.key} (${keypress.code})`)
 			resolvePhysicalKeypress = undefined
 		}, { signal: keydownListenerAbort.signal})
 
-		for (matrixProtocolIteration = 0; matrixProtocolIteration < matrixProtocolData.iterations; matrixProtocolIteration++) {
+		for (matrixProtocolIteration = 0; matrixProtocolIteration < matrixProtocolData.iterations; matrixProtocolIteration++) {	
 			executeMatrixProtocolIteration(activeMatrixProtocol, matrixProtocolIteration)
 			matrix[matrixProtocolIteration] = await Promise.any([
 				new Promise(( resolve ) => resolveVirtualKeypress = resolve) as Promise<string | null>,
@@ -74,13 +82,17 @@
 	<p>Do you want to start? You won't be able to use your keyboards special keys as long as you are focused on this window</p>
 	<button on:click={() => startMatrixGeneration()}>Start</button>
 {:else if stage === 3}
+	{#if capsLockActive}
+		<div class="overlay">
+			Please disable CapsLock before resuming the matrix generation
+		</div>
+	{/if}
 	<p>Your keys will now light up one after another, click the corresponding key on the screen or on your keyboard. When nothing lights up click the "Skip Key".</p>
 	<p>The FN key can't be detected by the program because it doesn't get sent to the computer, so when it lights up, you have to click it on the screen.</p>
 	<p>Progress: { (matrixProtocolIteration / (matrixProtocolData.iterations - 1)) * 100 }% ({ matrixProtocolIteration }/{ matrixProtocolData.iterations - 1 })</p>
 	<button on:click={() => { resolveVirtualKeypress?.(null); resolveVirtualKeypress = null }}>Skip Key</button>
 	<button on:click={() => { resolveVirtualKeypress?.("FN key"); resolveVirtualKeypress = null }}>FN</button>
 	<button on:click={() => { resolveVirtualKeypress?.("Alt Gr (Right Alt)"); resolveVirtualKeypress = null }}>Alt Gr</button>
-	<button on:click={() => { resolveVirtualKeypress?.("Caps lock"); resolveVirtualKeypress = null }}>Caps lock</button>
 	<button on:click={() => { resolveVirtualKeypress?.("Print"); resolveVirtualKeypress = null }}>Print</button>
 {:else if stage === 4}
 	<p>The matrix generation is now done, click on the download button to download the data</p>
@@ -88,4 +100,20 @@
 {/if}
 
 
-<style></style>
+<style>
+	.overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		z-index: 100;
+		background-color: white;
+		opacity: 0.90;
+
+		/* align */
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+</style>
