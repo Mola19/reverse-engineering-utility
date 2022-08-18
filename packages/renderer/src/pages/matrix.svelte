@@ -34,6 +34,8 @@
 		keydownListenerAbort = new AbortController()
 
 		document.body.addEventListener("keydown", (keypress) => {
+			keypress.preventDefault();
+			
 			// ignore a keypress if the button is held
 			if (keypress.repeat) return
 
@@ -50,10 +52,14 @@
 
 		for (matrixProtocolIteration = 0; matrixProtocolIteration < matrixProtocolData.iterations; matrixProtocolIteration++) {	
 			executeMatrixProtocolIteration(activeMatrixProtocol, matrixProtocolIteration)
-			matrix[matrixProtocolIteration] = await Promise.any([
+			let key: string | null = await Promise.any([
 				new Promise(( resolve ) => resolveVirtualKeypress = resolve) as Promise<string | null>,
 				new Promise(( resolve ) => resolvePhysicalKeypress = resolve) as Promise<string>
 			])
+
+			if (key == "*Cancel") return
+			else if (key == "*Back") matrixProtocolIteration -= 2
+			else matrix[matrixProtocolIteration] = key
 		}
 
 		keydownListenerAbort.abort()
@@ -94,6 +100,7 @@
 	<button on:click={() => { resolveVirtualKeypress?.("FN key"); resolveVirtualKeypress = null }}>FN</button>
 	<button on:click={() => { resolveVirtualKeypress?.("Alt Gr (Right Alt)"); resolveVirtualKeypress = null }}>Alt Gr</button>
 	<button on:click={() => { resolveVirtualKeypress?.("Print"); resolveVirtualKeypress = null }}>Print</button>
+	<button on:click={() => { resolveVirtualKeypress?.("*Back"); resolveVirtualKeypress = null }}>Back</button>
 {:else if stage === 4}
 	<p>The matrix generation is now done, click on the download button to download the data</p>
 	<button on:click={() => downloadJSON(`${activeMatrixProtocol}-matrix.json`, { ...matrix })}>Download</button>
@@ -101,7 +108,11 @@
 
 {#if stage !== 0}
 	<div class="footer">
-		<button on:click={() => stage = 0}>Cancel</button>
+		<button on:click={() => {
+			stage = 0
+			resolveVirtualKeypress?.("*Cancel")
+			resolveVirtualKeypress = null
+		}}>Cancel</button>
 	</div>
 {/if}
 

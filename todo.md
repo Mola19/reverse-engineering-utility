@@ -14,6 +14,7 @@
 - [ ] other element than body for keydown event listeners
 - [ ] custom key input
 - [ ] fix 100% + 1 progress issue
+- [ ] check for capslock at start
 
 ## new tools
 
