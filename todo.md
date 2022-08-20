@@ -1,9 +1,9 @@
 
 ## matrix
 
-- [ ] fix buttons
+- [x] fix buttons
   - [x] Caps Lock
-  - [ ] Alt Gr
+  - [x] Alt Gr
   - ~~Print~~ (not accessable for the browser, virtual key needed like FN)
 - [ ] virtual keyboard
 - [ ] link to protocol folder
@@ -15,6 +15,7 @@
 - [ ] custom key input
 - [ ] fix 100% + 1 progress issue
 - [ ] check for capslock at start
+- [ ] better solution for alt gr detection (if possible)
 
 ## new tools
 

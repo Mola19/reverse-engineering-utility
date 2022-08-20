@@ -9,7 +9,9 @@
 	let matrix: (string | null)[]
 	let matrixProtocolIteration: number
 	let keydownListenerAbort: AbortController | undefined
-	let capsLockActive: boolean
+
+	let capsLockActive: boolean = false
+	let altGrCheck: boolean = false
 
 	let resolveVirtualKeypress: ((val: string | null) => void) | null
 	let resolvePhysicalKeypress: ((val: string) => void) | undefined
@@ -33,11 +35,12 @@
 
 		keydownListenerAbort = new AbortController()
 
-		document.body.addEventListener("keydown", (keypress) => {
-			keypress.preventDefault();
+		document.body.addEventListener("keydown", async (keypress) => {
+			keypress.preventDefault()
+
 			
-			// ignore a keypress if the button is held
-			if (keypress.repeat) return
+			// ignore a keypress if the button is held or if the code currently tries to detect Alt Gr
+			if (keypress.repeat || altGrCheck) return
 
 			if (capsLockActive) {
 				capsLockActive = keypress.getModifierState("CapsLock")
@@ -46,9 +49,33 @@
 
 			capsLockActive = keypress.getModifierState("CapsLock")
 
-			resolvePhysicalKeypress?.(`${keypress.key} (${keypress.code})`)
+			let keytext = `${keypress.key} (${keypress.code})`
+
+			// Alt Gr emits a ctrl press and then Alt Gr (No way to distinguish from normal ctrl)
+			// waits until keyup if next key is alt gr
+			// TODO: better solution
+			if (keypress.code == "ControlLeft") {
+				altGrCheck = true
+
+				let keyupCtrlAbort: AbortController = new AbortController()
+				let keydownAltGrAbort: AbortController = new AbortController()
+
+				let result = await Promise.any([
+					new Promise(( resolve ) => document.body.addEventListener("keyup", ( key ) => { if (key.code == "ControlLeft") resolve("ctrl") }, { signal: keyupCtrlAbort.signal })) as Promise<string>,
+					new Promise(( resolve ) => document.body.addEventListener("keydown", ( key ) => { if (key.code == "AltRight") resolve("AltGraph (AltRight)") }, { signal: keydownAltGrAbort.signal })) as Promise<string>
+				])
+
+				keyupCtrlAbort.abort()
+				keydownAltGrAbort.abort()
+
+				if (result != "ctrl") keytext = result
+
+				altGrCheck = false
+			}
+
+			resolvePhysicalKeypress?.(keytext)
 			resolvePhysicalKeypress = undefined
-		}, { signal: keydownListenerAbort.signal})
+		}, { signal: keydownListenerAbort.signal })
 
 		for (matrixProtocolIteration = 0; matrixProtocolIteration < matrixProtocolData.iterations; matrixProtocolIteration++) {	
 			executeMatrixProtocolIteration(activeMatrixProtocol, matrixProtocolIteration)
@@ -98,7 +125,6 @@
 	<p>Progress: { (matrixProtocolIteration / (matrixProtocolData.iterations - 1)) * 100 }% ({ matrixProtocolIteration }/{ matrixProtocolData.iterations - 1 })</p>
 	<button on:click={() => { resolveVirtualKeypress?.(null); resolveVirtualKeypress = null }}>Skip Key</button>
 	<button on:click={() => { resolveVirtualKeypress?.("FN key"); resolveVirtualKeypress = null }}>FN</button>
-	<button on:click={() => { resolveVirtualKeypress?.("Alt Gr (Right Alt)"); resolveVirtualKeypress = null }}>Alt Gr</button>
 	<button on:click={() => { resolveVirtualKeypress?.("Print"); resolveVirtualKeypress = null }}>Print</button>
 	<button on:click={() => { resolveVirtualKeypress?.("*Back"); resolveVirtualKeypress = null }}>Back</button>
 {:else if stage === 4}
