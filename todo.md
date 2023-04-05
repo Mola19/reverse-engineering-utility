@@ -10,14 +10,14 @@
 - [ ] link to protocol folder
 - [X] cancel button
 - [ ] prevent default for keys
-- [ ] init function for protocols
+- [x] init function for protocols
 - [ ] other options than JSON
 - [ ] other element than body for keydown event listeners
-- [ ] custom key input
-- [ ] fix 100% + 1 progress issue
+- [x] custom key input
+- [x] fix 100% + 1 progress issue
 - [ ] check for capslock at start
 - [ ] better solution for alt gr detection (if possible)
-- [ ] key remapping solution
+- ~~key remapping solution~~ (solved by virtual keyboard and custom key)
 - [X] fix negative back
 
 ## new tools
