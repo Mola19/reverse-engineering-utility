@@ -37,7 +37,6 @@
 
 		document.body.addEventListener("keydown", async (keypress) => {
 			keypress.preventDefault()
-
 			
 			// ignore a keypress if the button is held or if the code currently tries to detect Alt Gr
 			if (keypress.repeat || altGrCheck) return
@@ -120,13 +119,13 @@
 			Please disable CapsLock before resuming the matrix generation
 		</div>
 	{/if}
-	<p>Your keys will now light up one after another. Click the corresponding key on the screen or on your keyboard. When nothing lights up click the "Skip Key".</p>
+	<p>Your keys will now light up one after another. Click the corresponding key on the screen or on your keyboard. When nothing lights up click "Skip Key".</p>
 	<p>When the FN or Print key lights up, you have to click it on the screen, because the app can't detect the keypress.</p>
 	<p>Progress: { (matrixProtocolIteration / (matrixProtocolData.iterations - 1)) * 100 }% ({ matrixProtocolIteration }/{ matrixProtocolData.iterations - 1 })</p>
 	<button on:click={() => { resolveVirtualKeypress?.(null); resolveVirtualKeypress = null }}>Skip Key</button>
 	<button on:click={() => { resolveVirtualKeypress?.("FN key"); resolveVirtualKeypress = null }}>FN</button>
 	<button on:click={() => { resolveVirtualKeypress?.("Print"); resolveVirtualKeypress = null }}>Print</button>
-	<button on:click={() => { resolveVirtualKeypress?.("*Back"); resolveVirtualKeypress = null }}>Back</button>
+	<button on:click={() => { resolveVirtualKeypress?.("*Back"); resolveVirtualKeypress = null }} disabled='{matrixProtocolIteration == 0}'>Back</button>
 {:else if stage === 4}
 	<p>The matrix generation is now done, click on the download button to download the data</p>
 	<button on:click={() => downloadJSON(`${activeMatrixProtocol}-matrix.json`, { ...matrix })}>Download</button>

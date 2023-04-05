@@ -1,13 +1,14 @@
-
 ## matrix
 
-- [x] fix buttons
-  - [x] Caps Lock
-  - [x] Alt Gr
+- [X] fix buttons
+
+  - [X] Caps Lock
+  - [X] Alt Gr
+
   - ~~Print~~ (not accessable for the browser, virtual key needed like FN)
 - [ ] virtual keyboard
 - [ ] link to protocol folder
-- [x] cancel button
+- [X] cancel button
 - [ ] prevent default for keys
 - [ ] init function for protocols
 - [ ] other options than JSON
@@ -16,6 +17,8 @@
 - [ ] fix 100% + 1 progress issue
 - [ ] check for capslock at start
 - [ ] better solution for alt gr detection (if possible)
+- [ ] key remapping solution
+- [X] fix negative back
 
 ## new tools
 
@@ -26,4 +29,3 @@
 - [ ] change icon
 - [ ] design
   - [ ] hamburger menu
-  
