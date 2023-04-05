@@ -13,5 +13,7 @@ interface ImportMeta {
 interface MatrixProtocol {
 	name: string,
 	iterations: number,
-	fn ( number: number ): string[],
+	detected: boolean | null,
+	detect (): void,
+	fn ( number: number ): void,
 }
