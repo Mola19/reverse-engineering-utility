@@ -29,7 +29,6 @@
 		"baseUrl": ".",
 		"esModuleInterop": true,
 		"moduleResolution": "node",
-		"isolatedModules": true,
 		"types" : [ "node" ],
 
 		"paths": {
