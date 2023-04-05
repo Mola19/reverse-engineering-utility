@@ -7,7 +7,7 @@ const mode = process.env.MODE = process.env.MODE || "production"
 const packagesConfigs = [
 	"packages/main/vite.config.ts",
 	"packages/preload/vite.config.ts",
-	"packages/renderer/vite.config.ts"
+	"packages/renderer/vite.config.mts"
 ]
 
 async function main () {

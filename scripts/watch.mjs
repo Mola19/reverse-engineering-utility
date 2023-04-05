@@ -75,7 +75,7 @@ async function main () {
 	try {
 		const viteDevServer = await createServer({
 			...sharedConfig,
-			configFile: "packages/renderer/vite.config.ts"
+			configFile: "packages/renderer/vite.config.mts"
 		})
 
 		await viteDevServer.listen()
