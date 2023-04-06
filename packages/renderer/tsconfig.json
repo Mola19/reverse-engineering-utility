@@ -1,36 +1,29 @@
 {
 	"compilerOptions": {
-		/* - project options - */
-		"module": "esnext",
-		"removeComments": true,
-		"rootDir": "src",
-		"sourceMap": false,
-		"target": "esnext",
-
-		/* - strict checks - */
+		/* - type checking - */
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
 		"alwaysStrict": true,
+		"exactOptionalPropertyTypes": true,
+		"noFallthroughCasesInSwitch": true,
 		"noImplicitAny": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
 		"noImplicitThis": true,
+		"noUncheckedIndexedAccess": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
 		"strict": true,
 		"strictBindCallApply": true,
 		"strictFunctionTypes": true,
 		"strictNullChecks": true,
 		"strictPropertyInitialization": true,
+		"useUnknownInCatchVariables": true,
 
-		/* - linter checks - */
-		"noFallthroughCasesInSwitch": true,
-		"noImplicitReturns": true,
-		"noUncheckedIndexedAccess": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-
-		/* - module resolution - */
-		"allowSyntheticDefaultImports": true,
+		/* - modules - */
 		"baseUrl": ".",
-		"esModuleInterop": true,
+		"module": "esnext",
 		"moduleResolution": "node",
-		"types" : [ "node" ],
-
 		"paths": {
 			"$assets": [ "./src/assets" ],
 			"$assets/*": [ "./src/assets/*" ],
@@ -45,20 +38,25 @@
 			"$services": [ "./src/services" ],
 			"$services/*": [ "./src/services/*" ]
 		},
+		"resolveJsonModule": true,
+		"types": [ "svelte", "node" ],
 
-		/* - experimental - */
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
+		/* - emit - */
+		"sourceMap": true,
+		"removeComments": true,
 
-		/* - advanced - */
+		/* - interop - */
+		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
-		"skipLibCheck": true
+		"verbatimModuleSyntax": true,
+
+		/* - lang & env - */
+		"lib": [ "esnext", "dom" ],
+		"target": "esnext",
+
+		/* - completeness - */
+		"skipLibCheck": true,
 	},
-	"include": [
-		"src/**/*.d.ts",
-		"src/**/*.ts",
-		"src/**/*.svelte",
-		"../../types/**/*.d.ts"
-	],
+	"include": [ "src/**/*.d.ts", "src/**/*.ts", "src/**/*.svelte", "../../types/**/*.d.ts" ],
 	"extends": "@tsconfig/svelte/tsconfig.json",
 }
