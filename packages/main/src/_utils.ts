@@ -9,7 +9,6 @@ export async function getMatrixProtocols () {
 		const path = joinPath(__dirname, "matrix-protocols", file)
 
 		const matrixProtocol: MatrixProtocol = require(path)
-		matrixProtocol.detect!()
 		matrixProtocols.push(matrixProtocol)
 	}
 
