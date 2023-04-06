@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { fetchMatrixProtocolData, executeMatrixProtocolIteration } from "$use/matrix"
+	import { fetchMatrixProtocolData, initMatrixProtocol, executeMatrixProtocolIteration } from "$use/matrix"
 
 	let stage: number = 0
 
@@ -31,6 +31,8 @@
 	}
 
 	async function startMatrixGeneration () {
+		initMatrixProtocol(activeMatrixProtocol)
+
 		matrixProtocolData = matrixProtocolDataList.find(el => el.name == activeMatrixProtocol)!
 		matrixProtocolIteration = 0
 		stage = 3

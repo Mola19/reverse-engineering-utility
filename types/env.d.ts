@@ -15,5 +15,6 @@ interface MatrixProtocol {
 	iterations: number,
 	detected: boolean | null,
 	detect: (() => void) | null,
+	init: (() => void) | null,
 	fn: (( number: number ) => void) | null,
 }

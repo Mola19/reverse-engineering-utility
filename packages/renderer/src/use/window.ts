@@ -1,6 +1,7 @@
 /* - Matrix - */
 interface Matrix {
 	fetchMatrixProtocolData (): Promise<MatrixProtocol[]>
+	initMatrixProtocol (matrixProtocolName: string): void
 	executeMatrixProtocolIteration (matrixProtocolName: string, iteration: number): void
 }
 
