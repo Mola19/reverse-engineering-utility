@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { fetchMatrixProtocolNames, fetchMatrixProtocolData, executeMatrixProtocolIteration } from "$use/matrix"
+	import { fetchMatrixProtocolData, executeMatrixProtocolIteration } from "$use/matrix"
 
 	let stage: number = 0
 
-	let matrixProtocolNames: string[]
+	let matrixProtocolDataList: MatrixProtocol[]
 	let matrixProtocolData: MatrixProtocol
 	let activeMatrixProtocol: string
 	let matrix: (string | null)[]
@@ -19,8 +19,9 @@
 	let customKeyActive: boolean = false
 	let customKeyValue: string
 
-	async function getMatrixProtocolNames () {
-		matrixProtocolNames = await fetchMatrixProtocolNames()
+	async function getMatrixProtocolData () {
+		matrixProtocolDataList = await fetchMatrixProtocolData()
+		console.log(matrixProtocolDataList)
 		stage = 1
 	}
 
@@ -30,7 +31,7 @@
 	}
 
 	async function startMatrixGeneration () {
-		matrixProtocolData = await fetchMatrixProtocolData(activeMatrixProtocol)
+		matrixProtocolData = matrixProtocolDataList.find(el => el.name == activeMatrixProtocol)!
 		matrixProtocolIteration = 0
 		stage = 3
 
@@ -120,11 +121,12 @@
 
 <!-- delete stage 0 -->
 {#if stage === 0}
-	<button on:click={() => getMatrixProtocolNames()}>Start</button>
+	<button on:click={getMatrixProtocolData}>Start</button>
 {:else if stage === 1}
-	{#each matrixProtocolNames as matrixProtocolName}
-		<button on:click={(event) => askForUserApproval(event.target)}>{matrixProtocolName}</button>
+	{#each matrixProtocolDataList as matrixProtocol}
+		<button on:click={(event) => askForUserApproval(event.target)} disabled={!matrixProtocol.detected}>{matrixProtocol.name}</button>
 	{/each}
+	<button on:click={getMatrixProtocolData}>Redetect</button>
 {:else if stage === 2}
 	<p>Do you want to start the matrix generation?</p>
 	<button on:click={() => startMatrixGeneration()}>Start</button>
@@ -137,10 +139,11 @@
 	<p>Your keys will now light up one after another. Click the corresponding key on the screen or on your keyboard. When nothing lights up click "Skip Key".</p>
 	<p>When the FN or Print key lights up, you have to click it on the screen, because the app can't detect the keypress.</p>
 	<p>Progress: { (matrixProtocolIteration / (matrixProtocolData.iterations)) * 100 }% ({ matrixProtocolIteration }/{ matrixProtocolData.iterations })</p>
-	<button on:click={() => { resolveVirtualKeypress?.(null); resolveVirtualKeypress = null }}>Skip Key</button>
 	<button on:click={() => { resolveVirtualKeypress?.("FN key"); resolveVirtualKeypress = null }}>FN</button>
 	<button on:click={() => { resolveVirtualKeypress?.("Print"); resolveVirtualKeypress = null }}>Print</button>
 	<button on:click={() => { customKeyActive = true }}>Custom Key</button>
+	<br>
+	<button on:click={() => { resolveVirtualKeypress?.(null); resolveVirtualKeypress = null }}>Skip Key</button>
 	<button on:click={() => { resolveVirtualKeypress?.("*Back"); resolveVirtualKeypress = null }} disabled={matrixProtocolIteration == 0}>Back</button>
 
 	{#if customKeyActive}

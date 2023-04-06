@@ -14,6 +14,6 @@ interface MatrixProtocol {
 	name: string,
 	iterations: number,
 	detected: boolean | null,
-	detect (): void,
-	fn ( number: number ): void,
+	detect: (() => void) | null,
+	fn: (( number: number ) => void) | null,
 }

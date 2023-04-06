@@ -2,12 +2,8 @@ import { contextBridge } from "electron"
 import { ipcRenderer } from "electron"
 
 const matrix = {
-	async fetchMatrixProtocolNames () {
-		const data = await ipcRenderer.invoke("fetchMatrixProtocolNames")
-		return data
-	},
-	async fetchMatrixProtocolData (matrixProtocolName: string) {
-		const data = await ipcRenderer.invoke("fetchMatrixProtocolData", matrixProtocolName)
+	async fetchMatrixProtocolData () {
+		const data = await ipcRenderer.invoke("fetchMatrixProtocolData")
 		return data
 	},
 	async executeMatrixProtocolIteration (matrixProtocolName: string, iteration: number) {
