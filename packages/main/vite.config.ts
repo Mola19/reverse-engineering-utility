@@ -1,17 +1,8 @@
 import { defineConfig } from "vite"
 import { builtinModules } from "module"
 import { join as joinPath } from "node:path"
-import { viteStaticCopy } from "vite-plugin-static-copy"
 
 export default defineConfig({
-	plugins: [
-		viteStaticCopy({
-			targets: [{
-				src: ["src/matrix-protocols"],
-				dest: "."
-			}]
-		})
-	],
 	mode: process.env.MODE,
 	root: __dirname,
 	build: {

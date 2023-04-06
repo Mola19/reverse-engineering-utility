@@ -112,7 +112,7 @@
 	}
 
 	function downloadJSON (filename: string, data: object) {
-		const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, "\t"))
+		const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, "\t") + "\n")
 		let downloadAnchorNode = document.createElement('a')
 		downloadAnchorNode.setAttribute("href", dataStr)
 		downloadAnchorNode.setAttribute("download", filename)
