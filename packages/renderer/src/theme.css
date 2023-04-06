@@ -1,0 +1,10 @@
+:root {
+	/* color */
+	--text-color: #000;
+	--background-color: #fff;
+	--highlight-background-color: aqua;
+	--element-background-color: #beb8b8;
+
+	/* style */
+	--border-radius: 6px
+}

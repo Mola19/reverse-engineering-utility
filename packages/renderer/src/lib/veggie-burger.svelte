@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { fade } from "svelte/transition"
+	import { MODE, current } from "$pages/page"
 
-	export let current: string
-
-	function select ( page: string ) {
-		current = page
+	function select ( page: MODE ) {
+		current.set(page)
+		toggle()
 	}
 
 	let isActive = false
@@ -16,25 +16,33 @@
 
 <!-- <svelte:body style="overflow: hidden;" /> -->
 
-<div on:click={toggle} class="oven">
-	<div class="veggie-oven {isActive ? "active" : ""}">
-		<div class="line" />
-		<div class="line" />
-		<div class="line" />
-	</div>
-</div>
-
-{#if isActive}
-	<div on:click={toggle} on:touchmove|passive={( ev ) => ev.preventDefault()} class="obscure">
-		<div transition:fade={{ duration: 300 }} on:click={( ev ) => ev.stopPropagation()} class="links">
-			<div on:click={() => select("matrix")} class="lnk">matrix</div>
-			<!-- <span class="div" /> -->
+<div class="wrap">
+	
+	<div on:click={toggle} on:keydown={toggle} class="oven">
+		<div class="veggie-oven {isActive ? "active" : ""}">
+			<div class="line" />
+			<div class="line" />
+			<div class="line" />
 		</div>
 	</div>
-{/if}
+	
+	{#if isActive}
+		<div on:click={toggle} on:keydown={toggle} on:touchmove|passive={( ev ) => ev.preventDefault()} class="obscure">
+			<div transition:fade={{ duration: 50 }} on:keydown|stopPropagation on:click|stopPropagation class="links">
+				<div on:click={() => select(MODE.matrix)} on:keydown={() => select(MODE.matrix)} class="lnk">matrix</div>
+				<!-- <span class="div" /> -->
+			</div>
+		</div>
+	{/if}
+
+</div>
 
 
 <style>
+	.wrap {
+		position: relative;
+	}
+
 	.oven {
 		background-color: #000;
 
@@ -82,7 +90,7 @@
 
 	.obscure {
 		position: fixed;
-		top: 98px;
+		top: 77px;
 		left: 0;
 		right: 0;
 		bottom: 0;
@@ -113,11 +121,12 @@
 		padding-bottom: 15px !important;
 	}
 
-	.links > .div {
+	/* divider */
+	/* .links > .div {
 		display: block;
 		height: 1px;
 		width: calc(100% - 40px);
 		margin: 0 20px;
 		background-color: #ccc;
-	}
+	} */
 </style>

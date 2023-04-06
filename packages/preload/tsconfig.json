@@ -1,53 +1,46 @@
 {
 	"compilerOptions": {
-		/* - project options - */
-		"module": "esnext",
-		"removeComments": true,
-		"rootDir": "src",
-		"sourceMap": false,
-		"target": "esnext",
-
-		/* - strict checks - */
+		/* - type checking - */
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
 		"alwaysStrict": true,
+		"exactOptionalPropertyTypes": true,
+		"noFallthroughCasesInSwitch": true,
 		"noImplicitAny": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
 		"noImplicitThis": true,
+		"noUncheckedIndexedAccess": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
 		"strict": true,
 		"strictBindCallApply": true,
 		"strictFunctionTypes": true,
 		"strictNullChecks": true,
 		"strictPropertyInitialization": true,
+		"useUnknownInCatchVariables": true,
 
-		/* - linter checks - */
-		"noFallthroughCasesInSwitch": true,
-		"noImplicitReturns": true,
-		"noUncheckedIndexedAccess": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-
-		/* - module resolution - */
-		"allowSyntheticDefaultImports": true,
-		"baseUrl": ".",
-		"esModuleInterop": true,
+		/* - modules - */
+		"module": "esnext",
 		"moduleResolution": "node",
-		"isolatedModules": true,
-		"resolveJsonModule": true,
-		"types" : [ "node" ],
+		"rootDir": "src",
+		"types": [ "node" ],
 
-		/* - experimental - */
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
+		/* - emit - */
+		"declaration": true,
+		"outDir": "dist",
 
-		/* - advanced - */
+		/* - interop - */
+		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
-		"skipLibCheck": true
+		"verbatimModuleSyntax": true,
+
+		/* - lang & env - */
+		"lib": [ "esnext" ],
+		"target": "esnext",
+
+		/* - completeness - */
+		"skipLibCheck": true,
 	},
-	"include": [
-		"src/**/*.ts",
-		"src/i18n/**/*.json",
-		"../../types/**/*.d.ts"
-	],
-	"exclude": [
-		"**/*.spec.ts",
-		"**/*.test.ts"
-	]
+	"include": [ "src/**/*.ts", "../../types/**/*.d.ts" ]
 }
