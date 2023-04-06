@@ -8,6 +8,9 @@
 		"packages/**/dist/**"
 	],
 	"win": {
-		"target": [ "zip" ]
+		"target": [ "zip", "msi" ]
+	},
+	"linux": {
+		"target": [ "AppImage", "zip" ]
 	}
 }

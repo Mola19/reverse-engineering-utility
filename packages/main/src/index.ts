@@ -70,3 +70,5 @@ if (import.meta.env.PROD) {
 		.then(({ autoUpdater }) => autoUpdater.checkForUpdatesAndNotify())
 		.catch(( e ) => console.error("failed check updates:", e))
 }
+
+export { app }
