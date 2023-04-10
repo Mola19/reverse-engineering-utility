@@ -1,8 +1,8 @@
 import { writable } from "svelte/store"
 
-export const enum MODE {
+export const enum PAGE {
 	home = "home",
 	matrix = "matrix"
 }
 
-export const current = writable<MODE>(MODE.home)
+export const page = writable<PAGE>(PAGE.home)

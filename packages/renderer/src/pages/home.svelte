@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Selector from "$lib/selector.svelte";
-	import { current, MODE } from "./page"
+	import Selector from "$lib/selector.svelte"
+	import { page, PAGE } from "./page"
 </script>
 
 
 <Selector title="select mode" >
-	<div on:keydown={() => current.set(MODE.matrix)} on:click={() => current.set(MODE.matrix)} class="el">matrix</div>
+	<div on:keydown={() => page.set(PAGE.matrix)} on:click={() => page.set(PAGE.matrix)} class="el">matrix</div>
 </Selector>
 
 <!-- <div class="main">
