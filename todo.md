@@ -4,8 +4,8 @@
 
   - [X] Caps Lock
   - [X] Alt Gr
-
   - ~~Print~~ (not accessable for the browser, virtual key needed like FN)
+
 - [ ] virtual keyboard
 - [x] link to protocol folder
 - [X] cancel button

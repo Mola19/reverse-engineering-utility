@@ -9,7 +9,7 @@ export async function getMatrixProtocols () {
 	if (!existsSync(protocolDir)) await mkdir(protocolDir, { recursive: true })
 
 	const files = await readdir(protocolDir)
-	const jsFiles = files.filter(file => file.endsWith(".js"))
+	const jsFiles = files.filter(( file ) => file.endsWith(".js"))
 
 	let matrixProtocols: MatrixProtocol[] = []
 	for (const file of jsFiles) {

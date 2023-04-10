@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { fade } from "svelte/transition"
-	import { MODE, current } from "$pages/page"
+	import { PAGE, page } from "$pages/page"
 
-	function select ( page: MODE ) {
-		current.set(page)
+	function select ( activePage: PAGE ) {
+		page.set(activePage)
 		toggle()
 	}
 
@@ -17,7 +17,7 @@
 <!-- <svelte:body style="overflow: hidden;" /> -->
 
 <div class="wrap">
-	
+
 	<div on:click={toggle} on:keydown={toggle} class="oven">
 		<div class="veggie-oven {isActive ? "active" : ""}">
 			<div class="line" />
@@ -25,11 +25,11 @@
 			<div class="line" />
 		</div>
 	</div>
-	
+
 	{#if isActive}
 		<div on:click={toggle} on:keydown={toggle} on:touchmove|passive={( ev ) => ev.preventDefault()} class="obscure">
 			<div transition:fade={{ duration: 50 }} on:keydown|stopPropagation on:click|stopPropagation class="links">
-				<div on:click={() => select(MODE.matrix)} on:keydown={() => select(MODE.matrix)} class="lnk">matrix</div>
+				<div on:click={() => select(PAGE.matrix)} on:keydown={() => select(PAGE.matrix)} class="lnk">matrix</div>
 				<!-- <span class="div" /> -->
 			</div>
 		</div>

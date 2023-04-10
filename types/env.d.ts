@@ -3,7 +3,7 @@
 
 interface ImportMetaEnv {
 	readonly mode: "development" | "production"
-	readonly VITE_DEV_SERVER_URL: undefined | string;
+	readonly VITE_DEV_SERVER_URL: undefined | string
 }
 
 interface ImportMeta {
@@ -14,7 +14,9 @@ interface MatrixProtocol {
 	name: string,
 	iterations: number,
 	detected: boolean | null,
-	detect: (() => Promise<void> | void) | null,
-	init: (() => Promise<void> | void) | null,
-	fn: (( number: number ) => Promise<void> | void) | null,
+	detect: () => Promise<void> | void,
+	init: () => Promise<void> | void,
+	fn: ( number: number ) => Promise<void> | void,
 }
+
+type FrontMatrixProtocol = Omit<MatrixProtocol, "fn" | "init" | "fn">

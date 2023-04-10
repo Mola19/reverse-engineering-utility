@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { current, MODE } from "$pages/page"
+	import { page, PAGE } from "$pages/page"
 	import VeggieBurger from "$lib/veggie-burger.svelte"
 	import Matrix from "$pages/matrix.svelte"
-    import Home from "$pages/home.svelte"
+	import Home from "$pages/home.svelte"
 </script>
 
 
@@ -11,9 +11,9 @@
 </div>
 
 <div class="main">
-	{#if $current === MODE.matrix}
+	{#if $page === PAGE.matrix}
 		<Matrix />
-	{:else if $current === MODE.home}
+	{:else if $page === PAGE.home}
 		<Home />
 	{/if}
 </div>
