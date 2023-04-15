@@ -5,6 +5,11 @@ interface Matrix {
 	executeMatrixProtocolIteration (matrixProtocolName: string, iteration: number): void
 }
 
+interface App {
+	openUserData (subpath: string): Promise<void>
+}
+
 export interface CustomWindow extends Window {
-	matrix: Matrix
+	matrix: Matrix,
+	app: App
 }

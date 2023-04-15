@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { fetchMatrixProtocolData, initMatrixProtocol, executeMatrixProtocolIteration } from "$use/matrix"
+	import { openUserData } from "$use/app"
 
 	let stage: number = 0
 
@@ -129,6 +130,7 @@
 		<button on:click={(event) => askForUserApproval(event.target)} disabled={!matrixProtocol.detected}>{matrixProtocol.name}</button>
 	{/each}
 	<button on:click={getMatrixProtocolData}>Redetect</button>
+	<button on:click={() => openUserData("matrix-protocols")}>Open Matrix Protocol Folder</button>
 {:else if stage === 2}
 	<p>Do you want to start the matrix generation?</p>
 	<button on:click={() => startMatrixGeneration()}>Start</button>

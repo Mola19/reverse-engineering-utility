@@ -1,5 +1,7 @@
-import { ipcMain } from "electron"
+import { ipcMain, shell } from "electron"
 import { getMatrixProtocols } from "./_utils"
+import { app } from "./index.js"
+import { join as joinPath } from "node:path"
 
 ipcMain.handle("fetchMatrixProtocolData", async () => {
 	const matrixProtocolData = await getMatrixProtocols()
@@ -20,4 +22,10 @@ ipcMain.handle("executeMatrixProtocolIteration", async ( _event, matrixProtocolN
 	const matrixProtocolData = matrixProtocols.find(el => el.name == matrixProtocolName)!
 
 	await matrixProtocolData.fn!(iteration)
+})
+
+ipcMain.handle("openUserData", async ( _event, subpath: string ) => {
+	const userData = app.getPath("userData")
+
+	shell.openPath(joinPath(userData, subpath))
 })

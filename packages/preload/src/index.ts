@@ -16,4 +16,12 @@ const matrix = {
 	}
 }
 
+const app = {
+	async openUserData (subpath: string) {
+		const data = await ipcRenderer.invoke("openUserData", subpath)
+		return data
+	}
+}
+
 contextBridge.exposeInMainWorld("matrix", matrix)
+contextBridge.exposeInMainWorld("app", app)
