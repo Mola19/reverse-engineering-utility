@@ -3,6 +3,7 @@
 	import { STAGE, stage } from "./stage"
 	import { activeMatrixProtocolName, matrixProtocolDataList, matrix, activeMatrixProtocol } from "./matrix-protocol"
 	import Cancel from "../cancel.svelte"
+	import LongTitle from "$lib/selector/long-title.svelte"
 
 	async function startMatrixGeneration () {
 		initMatrixProtocol($activeMatrixProtocolName)
@@ -14,7 +15,7 @@
 </script>
 
 
-<p>Do you want to start the matrix generation?</p>
-<button on:click={() => startMatrixGeneration()}>Start</button>
-
-<Cancel />
+<LongTitle title="Do you want to start the matrix generation?">
+	<button on:click={() => startMatrixGeneration()}>Start</button>
+	<Cancel />
+</LongTitle>

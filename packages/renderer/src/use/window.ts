@@ -6,7 +6,7 @@ interface Matrix {
 }
 
 interface App {
-	openUserData (subpath: string): Promise<void>
+	openUserData ( subpath: string ): Promise<void>
 }
 
 export interface CustomWindow extends Window {

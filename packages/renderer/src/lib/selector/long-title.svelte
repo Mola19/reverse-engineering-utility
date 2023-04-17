@@ -1,30 +1,31 @@
 <script lang="ts">
-	import Wrap from "$lib/selector/wrap.svelte"
-	import { page, PAGE } from "./page"
+	import Wrap from "./wrap.svelte"
+	export let title: string | string[];
 </script>
 
 
 <Wrap>
-	<h2>Select Mode</h2>
+	{#if Array.isArray(title)}
+		{#each title as t}
+			<h3>{t}</h3>
+		{/each}
+	{:else}
+		<h3>{title}</h3>
+	{/if}
 
 	<div class="main">
-		<div class="btn" on:keydown={() => page.set(PAGE.matrix)} on:click={() => page.set(PAGE.matrix)}>Matrix</div>
+		<slot />
 	</div>
 </Wrap>
 
 
 <style>
 	.main {
-		position: absolute;
-		top: calc(32px + var(--margin-gap));
-		left: 0;
-		right: 0;
-		bottom: 0;
-		overflow-y: auto;
-		overflow-x: hidden;
-
 		display: flexbox;
 		gap: 5px;
+
+		overflow-y: auto;
+		overflow-x: hidden;
 	}
 
 	.main > :global(div.btn), .main > :global(button) {
@@ -35,8 +36,12 @@
 		margin-bottom: 0;
 	}
 
-	h2 {
+	h3 {
+		font-size: var(--tmp-font-size, 1.17em);
 		text-align: center;
+	}
+
+	h3:last-of-type {
 		padding-bottom: var(--margin-gap);
 	}
 </style>
