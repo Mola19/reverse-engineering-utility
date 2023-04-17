@@ -2,6 +2,8 @@
 	import { createEventDispatcher } from "svelte"
 	import { STAGE, stage } from "./matrix/stage"
 
+	export let tabindex = 0
+
 	const dispatch = createEventDispatcher()
 	function cancel () {
 		stage.set(STAGE.init)
@@ -10,22 +12,10 @@
 </script>
 
 
-<div class="footer">
-	<button on:keydown={cancel} on:click={cancel}>cancel</button>
-</div>
-
+<button {tabindex} on:keydown={cancel} on:click={cancel}>Cancel</button>
 
 <style>
-	.footer {
-		position: fixed;
-		bottom: 0;
-
-		width: 100%;
-		height: 10%;
-
-		/* align */
-		display: flex;
-		align-items: center;
-		justify-content: center;
+	button:hover {
+		background-color: var(--cancel-background-color) !important;
 	}
 </style>

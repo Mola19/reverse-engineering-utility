@@ -30,5 +30,8 @@
 	"browserslist": [
 		"Chrome 112"
 	],
-	"private": true
+	"private": true,
+	"dependencies": {
+		"@fortawesome/free-solid-svg-icons": "^6.4.0"
+	}
 }

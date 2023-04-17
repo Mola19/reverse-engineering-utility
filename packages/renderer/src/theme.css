@@ -3,8 +3,11 @@
 	--text-color: #000;
 	--background-color: #fff;
 	--highlight-background-color: aqua;
+	--cancel-background-color: red;
 	--element-background-color: #beb8b8;
 
 	/* style */
-	--border-radius: 6px
+	--border-radius: 6px;
+	--select-gap: 6px;
+	--margin-gap: 12px;
 }

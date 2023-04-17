@@ -6,11 +6,15 @@
 	import StartMatrix from "$lib/matrix/start-matrix.svelte"
 	import Matrix from "$lib/matrix/matrix.svelte"
 	import Download from "$lib/matrix/download.svelte"
+
+	import LongTitle from "$lib/selector/long-title.svelte"
 </script>
 
-<!-- delete init stage -->
+
 {#if $stage === STAGE.init}
-	<button on:click={setMatrixProtocolDataList}>Start</button>
+	<LongTitle --tmp-font-size="1.5em" title="Start matrix generation">
+		<button on:click={setMatrixProtocolDataList}>Start</button>
+	</LongTitle>
 {:else if $stage === STAGE.selectProtocol}
 	<SelectProtocol />
 {:else if $stage === STAGE.initMatrix}

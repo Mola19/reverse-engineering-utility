@@ -28,4 +28,3 @@
 
 - [ ] change icon
 - [ ] design
-  - [ ] hamburger menu
