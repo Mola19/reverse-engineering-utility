@@ -3,9 +3,13 @@ import { join as joinPath } from "node:path"
 import { app } from "./index.js"
 import { existsSync } from "node:fs"
 
-export async function getMatrixProtocols () {
+export function getUserData ( ...path: string[] ) {
 	const userData = app.getPath("userData")
-	const protocolDir = joinPath(userData, "matrix-protocols")
+	return joinPath(userData, ...path)
+}
+
+export async function getMatrixProtocols () {
+	const protocolDir = getUserData("matrix-protocols")
 	if (!existsSync(protocolDir)) await mkdir(protocolDir, { recursive: true })
 
 	const files = await readdir(protocolDir)

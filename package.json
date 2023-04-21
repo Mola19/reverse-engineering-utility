@@ -14,7 +14,9 @@
 		"update-versions": "node ./scripts/update-versions.mjs"
 	},
 	"dependencies": {
-		"@fortawesome/free-solid-svg-icons": "^6.4.0"
+		"@fortawesome/free-solid-svg-icons": "^6.4.0",
+		"@types/npm": "^7.19.0",
+		"npm": "^9.6.5"
 	},
 	"devDependencies": {
 		"@fontsource/roboto": "^4.5.8",

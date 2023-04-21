@@ -18,6 +18,7 @@ export default defineConfig({
 			external: [
 				"electron",
 				"node-hid",
+				"npm/lib/cli.js",
 				...builtinModules.flatMap(( m ) => [ m, `node:${m}` ])
 			],
 			output: {
