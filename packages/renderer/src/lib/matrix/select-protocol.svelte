@@ -15,9 +15,11 @@
 	<h2>Select Protocol</h2>
 
 	<div class="top">
-		{#each $matrixProtocolDataList as matrixProtocol}
-			<button on:click={() => selectMatrixProtocol(matrixProtocol.name)} disabled={!matrixProtocol.detected}>{matrixProtocol.name}</button>
-		{/each}
+		<div class="list">
+			{#each $matrixProtocolDataList as matrixProtocol}
+				<button on:click={() => selectMatrixProtocol(matrixProtocol.name)} disabled={!matrixProtocol.detected}>{matrixProtocol.name}</button>
+			{/each}
+		</div>
 	</div>
 
 	<div class="bottom">
@@ -41,11 +43,13 @@
 		right: 0;
 		bottom: calc(88px + var(--margin-gap));
 
+		overflow: auto;
+	}
+
+	.list {
 		display: flex;
 		flex-wrap: wrap;
 		gap: var(--select-gap);
-
-		overflow: auto;
 	}
 
 	.top button {
