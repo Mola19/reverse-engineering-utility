@@ -10,15 +10,14 @@ export function getUserData ( ...path: string[] ) {
 	return joinPath(userData, ...path)
 }
 
-const npmWait: (() => void)[] = []
-let isNpmDone = false
-export async function waitNpm () {
-	if (isNpmDone) return
+const npmWait: Set<() => void> = new Set
+const waitNpm = () => new Promise<void>(( resolve ) => npmWait.add(resolve))
 
-	return await new Promise<void>(( resolve ) => npmWait.push(resolve))
-}
-
+let isNpmInstall = false
 export async function npmInstall () {
+	if (isNpmInstall) return await waitNpm()
+
+	isNpmInstall = true
 	const protocolDir = getUserData("matrix-protocols")
 
 	const files = await readdir(protocolDir)
@@ -47,8 +46,9 @@ export async function npmInstall () {
 	await npm(process)
 	console.log("npm done")
 
-	isNpmDone = true
+	isNpmInstall = false
 	npmWait.forEach(( resolve ) => resolve())
+	npmWait.clear()
 }
 
 export async function getMatrixProtocols () {
