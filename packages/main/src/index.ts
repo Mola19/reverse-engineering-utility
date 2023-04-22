@@ -1,12 +1,8 @@
 import { app, BrowserWindow } from "electron"
 import { join } from "node:path"
 import { URL } from "node:url"
-// @ts-expect-error
-import npm from "../../../node_modules/npm/lib/cli.js"
+import { npmInstall } from "./_utils.js"
 import "./ipc.js"
-import { getUserData } from "./_utils.js"
-
-declare function npm ( arg: NodeJS.Process ): Promise<void>
 
 const isSingleInstance = app.requestSingleInstanceLock()
 if (!isSingleInstance) {
@@ -47,15 +43,7 @@ async function createWindow (): Promise<void> {
 	mainWindow.removeMenu()
 	await mainWindow.loadURL(pageUrl)
 
-	/* todo move ? */
-	const protocolDir = getUserData("matrix-protocols")
-
-	process.argv = [ process.argv[0]!, "npm", "install", "--prefix", protocolDir ]
-	// @ts-expect-error
-	process.exit = ( code ) => { console.trace(code) }
-
-	await npm(process)
-	console.log("npm done")
+	npmInstall()
 }
 
 app.on("second-instance", () => {
