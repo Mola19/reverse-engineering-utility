@@ -2,7 +2,7 @@ import { app, BrowserWindow } from "electron"
 import { join } from "node:path"
 import { URL } from "node:url"
 // @ts-expect-error
-import npm from "npm/lib/cli.js"
+import npm from "../../../node_modules/npm/lib/cli.js"
 import "./ipc.js"
 import { getUserData } from "./_utils.js"
 
@@ -50,7 +50,7 @@ async function createWindow (): Promise<void> {
 	/* todo move ? */
 	const protocolDir = getUserData("matrix-protocols")
 
-	process.argv = [ process.argv[0]!, process.argv[1]!, "install", "--prefix", protocolDir ]
+	process.argv = [ process.argv[0]!, "npm", "install", "--prefix", protocolDir ]
 	// @ts-expect-error
 	process.exit = ( code ) => { console.trace(code) }
 
