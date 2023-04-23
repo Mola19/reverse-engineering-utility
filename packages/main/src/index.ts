@@ -67,11 +67,11 @@ app.whenReady()
 
 
 // auto-updates
-if (import.meta.env.PROD) {
-	app.whenReady()
-		.then(() => import("electron-updater"))
-		.then(({ autoUpdater }) => autoUpdater.checkForUpdatesAndNotify())
-		.catch(( e ) => console.error("failed check updates:", e))
-}
+// if (import.meta.env.PROD) {
+// 	app.whenReady()
+// 		.then(() => import("electron-updater"))
+// 		.then(({ autoUpdater }) => autoUpdater.checkForUpdatesAndNotify())
+// 		.catch(( e ) => console.error("failed check updates:", e))
+// }
 
 export { app }

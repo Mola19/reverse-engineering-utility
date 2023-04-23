@@ -38,7 +38,10 @@ export async function npmInstall () {
 
 	await writeFile(joinPath(protocolDir, "package.json"), JSON.stringify(pkg, null, "\t"))
 
-	process.argv = [ process.argv[0]!, "npm", "install", "--prefix", protocolDir ]
+	process.chdir(protocolDir)
+
+	process.argv = [ process.argv[0]!, "npm", "install" ]
+	// process.argv = [ process.argv[0]!, "npm", "install", "--prefix", protocolDir ]
 
 	// @ts-expect-error
 	process.exit = ( code ) => console.trace("trace exit", code)
