@@ -5,6 +5,8 @@ import { existsSync } from "node:fs"
 // @ts-expect-error
 import npm from "../../../node_modules/npm/lib/cli.js"
 
+declare function npm ( process: NodeJS.Process ): Promise<void>
+
 export function getUserData ( ...path: string[] ) {
 	const userData = app.getPath("userData")
 	return joinPath(userData, ...path)
@@ -18,6 +20,7 @@ export async function npmInstall () {
 	if (isNpmInstall) return await waitNpm()
 
 	isNpmInstall = true
+
 	const protocolDir = getUserData("matrix-protocols")
 
 	const files = await readdir(protocolDir)
@@ -38,16 +41,22 @@ export async function npmInstall () {
 
 	await writeFile(joinPath(protocolDir, "package.json"), JSON.stringify(pkg, null, "\t"))
 
-	process.chdir(protocolDir)
+	const oldCwd = process.cwd()
+	const oldArgv = process.argv
+	// const oldExit = process.exit
 
+	process.chdir(protocolDir)
 	process.argv = [ process.argv[0]!, "npm", "install" ]
-	// process.argv = [ process.argv[0]!, "npm", "install", "--prefix", protocolDir ]
 
 	// @ts-expect-error
 	process.exit = ( code ) => console.trace("trace exit", code)
 
 	await npm(process)
 	console.log("npm done")
+
+	process.chdir(oldCwd)
+	process.argv = oldArgv
+	// process.exit = oldExit
 
 	isNpmInstall = false
 	npmWait.forEach(( resolve ) => resolve())
