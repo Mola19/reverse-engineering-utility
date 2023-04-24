@@ -1,7 +1,7 @@
 import { contextBridge } from "electron"
 import { ipcRenderer } from "electron"
 
-const matrix = {
+const matrix: Matrix = {
 	async fetchMatrixProtocolData () {
 		const data = await ipcRenderer.invoke("fetchMatrixProtocolData")
 		return data
@@ -16,7 +16,7 @@ const matrix = {
 	}
 }
 
-const app = {
+const app: App = {
 	async openUserData (subpath: string) {
 		const data = await ipcRenderer.invoke("openUserData", subpath)
 		return data
