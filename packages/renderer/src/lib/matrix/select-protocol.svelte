@@ -3,7 +3,8 @@
 	import { STAGE, stage } from "./stage"
 	import Cancel from "../cancel.svelte"
 	import { openUserData } from "$use/app"
-	import Wrap from "$lib/selector/wrap.svelte";
+	import Wrap from "$lib/selector/wrap.svelte"
+	import Loading from "./lib/loading.svelte"
 
 	async function selectMatrixProtocol ( matrixProtocolName: string ) {
 		activeMatrixProtocolName.set(matrixProtocolName)
@@ -28,6 +29,8 @@
 		<Cancel />
 	</div>
 </Wrap>
+
+<Loading />
 
 
 <style>
