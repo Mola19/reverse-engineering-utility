@@ -5,7 +5,7 @@
 
 
 {#if $loading}
-	<Overlay>
+	<Overlay --tmp-cursor="wait">
 		<div>loading ...</div>
 	</Overlay>
 {/if}
