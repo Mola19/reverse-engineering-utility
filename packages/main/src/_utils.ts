@@ -13,9 +13,9 @@ export function getUserData ( ...path: string[] ) {
 }
 
 const npmWait: Set<() => void> = new Set
-const waitNpm = () => new Promise<void>(( resolve ) => npmWait.add(resolve))
+export const waitNpm = () => new Promise<void>(( resolve ) => npmWait.add(resolve))
 
-let isNpmInstall = false
+export let isNpmInstall = false
 export async function npmInstall () {
 	if (isNpmInstall) return await waitNpm()
 

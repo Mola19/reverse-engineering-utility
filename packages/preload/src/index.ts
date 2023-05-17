@@ -2,6 +2,10 @@ import { contextBridge } from "electron"
 import { ipcRenderer } from "electron"
 
 const matrix: Matrix = {
+	async npmInstall () {
+		const data = await ipcRenderer.invoke("npmInstall")
+		return data
+	},
 	async fetchMatrixProtocolData () {
 		const data = await ipcRenderer.invoke("fetchMatrixProtocolData")
 		return data

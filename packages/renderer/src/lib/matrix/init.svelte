@@ -6,7 +6,7 @@
 
 
 <LongTitle --tmp-font-size="1.5em" title="Start matrix generation">
-	<button on:click={setMatrixProtocolDataList}>Start</button>
+	<button on:click={() => setMatrixProtocolDataList(false)}>Start</button>
 </LongTitle>
 
 <Loading />

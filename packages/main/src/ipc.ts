@@ -1,8 +1,12 @@
 import { ipcMain, shell } from "electron"
-import { getMatrixProtocols, getUserData, npmInstall } from "./_utils"
+import { getMatrixProtocols, getUserData, isNpmInstall, npmInstall, waitNpm } from "./_utils"
+
+ipcMain.handle("npmInstall", async () => {
+	await npmInstall()
+})
 
 ipcMain.handle("fetchMatrixProtocolData", async () => {
-	await npmInstall()
+	if (isNpmInstall) await waitNpm()
 
 	const matrixProtocolData = await getMatrixProtocols()
 	await Promise.all(matrixProtocolData.map(( matrixProtocol ) => matrixProtocol.detect()))
