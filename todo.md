@@ -15,6 +15,7 @@
 - [x] fix 100% + 1 progress issue
 - ~~key remapping solution~~ (solved by virtual keyboard and custom key)
 - [X] fix negative back
+- [ ] check internet connection
 
 - not important/probably impossible
   - [ ] better solution for alt gr detection
