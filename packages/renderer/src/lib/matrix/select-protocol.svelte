@@ -3,7 +3,8 @@
 	import { STAGE, stage } from "./stage"
 	import Cancel from "../cancel.svelte"
 	import { openUserData } from "$use/app"
-	import Wrap from "$lib/selector/wrap.svelte";
+	import Wrap from "$lib/selector/wrap.svelte"
+	import Loading from "./lib/loading.svelte"
 
 	async function selectMatrixProtocol ( matrixProtocolName: string ) {
 		activeMatrixProtocolName.set(matrixProtocolName)
@@ -23,11 +24,13 @@
 	</div>
 
 	<div class="bottom">
-		<button on:click={setMatrixProtocolDataList}>Redetect</button>
+		<button on:click={() => setMatrixProtocolDataList(true)}>Redetect</button>
 		<button on:click={() => openUserData("matrix-protocols")}>Open Folder</button>
 		<Cancel />
 	</div>
 </Wrap>
+
+<Loading />
 
 
 <style>

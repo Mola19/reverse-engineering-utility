@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Wrap from "./wrap.svelte"
-	export let title: string | string[];
+	export let title: string | string[]
 </script>
 
 

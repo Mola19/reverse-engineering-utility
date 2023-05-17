@@ -14,6 +14,8 @@
 		background-color: white;
 		opacity: 0.90;
 
+		cursor: var(--tmp-cursor, auto);
+
 		/* align */
 		display: flex;
 		align-items: center;

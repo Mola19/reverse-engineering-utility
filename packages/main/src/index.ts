@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from "electron"
 import { join } from "node:path"
 import { URL } from "node:url"
+import { npmInstall } from "./_utils.js"
 import "./ipc.js"
 
 const isSingleInstance = app.requestSingleInstanceLock()
@@ -41,6 +42,8 @@ async function createWindow (): Promise<void> {
 
 	mainWindow.removeMenu()
 	await mainWindow.loadURL(pageUrl)
+
+	npmInstall()
 }
 
 app.on("second-instance", () => {
@@ -64,11 +67,11 @@ app.whenReady()
 
 
 // auto-updates
-if (import.meta.env.PROD) {
-	app.whenReady()
-		.then(() => import("electron-updater"))
-		.then(({ autoUpdater }) => autoUpdater.checkForUpdatesAndNotify())
-		.catch(( e ) => console.error("failed check updates:", e))
-}
+// if (import.meta.env.PROD) {
+// 	app.whenReady()
+// 		.then(() => import("electron-updater"))
+// 		.then(({ autoUpdater }) => autoUpdater.checkForUpdatesAndNotify())
+// 		.catch(( e ) => console.error("failed check updates:", e))
+// }
 
 export { app }
