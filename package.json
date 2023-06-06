@@ -2,7 +2,10 @@
 	"name": "reverse-engineering-utility",
 	"version": "0.0.0-alpha.0",
 	"description": "A set of tools to assist you with reverse engineering devices",
-	"author": "Mola19",
+	"author": {
+		"name": "Mola19",
+		"email": "Mola9041@gmail.com"
+	},
 	"license": "MIT",
 	"main": "packages/main/dist/index.js",
 	"scripts": {
@@ -32,7 +35,7 @@
 		"vite": "^4.3.9"
 	},
 	"browserslist": [
-		"Chrome 112"
+		"Chrome 114"
 	],
 	"private": true
 }

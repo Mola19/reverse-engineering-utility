@@ -11,6 +11,7 @@
 		"target": [ "zip", "msi" ]
 	},
 	"linux": {
-		"target": [ "AppImage", "zip" ]
+		"target": [ "AppImage", "deb", "rpm", "pacman", "tar.gz" ],
+		"category": "Development"
 	}
 }
