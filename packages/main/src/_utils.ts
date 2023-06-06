@@ -1,7 +1,7 @@
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises"
 import { join as joinPath } from "node:path"
 import { app } from "./index.js"
-import { existsSync } from "node:fs"
+import { existsSync, mkdirSync } from "node:fs"
 // @ts-expect-error
 import npm from "../../../node_modules/npm/lib/cli.js"
 
@@ -9,7 +9,9 @@ declare function npm ( process: NodeJS.Process ): Promise<void>
 
 export function getUserData ( ...path: string[] ) {
 	const userData = app.getPath("userData")
-	return joinPath(userData, ...path)
+	const userDataPath = joinPath(userData, ...path)
+	if(!existsSync(userDataPath)) mkdirSync(userDataPath, { recursive: true }) 
+	return userDataPath
 }
 
 const npmWait: Set<() => void> = new Set
