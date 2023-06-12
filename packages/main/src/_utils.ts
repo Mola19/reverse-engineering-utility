@@ -76,6 +76,7 @@ export async function getMatrixProtocols () {
 	for (const file of jsFiles) {
 		const path = joinPath(protocolDir, file)
 
+		delete require.cache[require.resolve(path)]
 		const matrixProtocol: MatrixProtocol = require(path)
 		matrixProtocols.push(matrixProtocol)
 	}
